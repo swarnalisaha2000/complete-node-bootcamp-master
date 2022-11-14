@@ -1,26 +1,26 @@
 {
-  "name": "node-farm",
-  "version": "1.0.0",
-  "description": "Leaning basic node",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/swarnalisaha2000/complete-node-bootcamp-master.git"
-  },
-  "author": "Swarnali Saha",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/swarnalisaha2000/complete-node-bootcamp-master/issues"
-  },
-  "homepage": "https://github.com/swarnalisaha2000/complete-node-bootcamp-master#readme",
-  "dependencies": {
-    "express": "^4.18.2",
-    "slugify": "^1.6.5"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
-  }
+    "name": "node-farm",
+    "version": "1.0.0",
+    "description": "Leaning basic node",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/swarnalisaha2000/complete-node-bootcamp-master.git"
+    },
+    "author": "Swarnali Saha",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/swarnalisaha2000/complete-node-bootcamp-master/issues"
+    },
+    "homepage": "https://github.com/swarnalisaha2000/complete-node-bootcamp-master#readme",
+    "dependencies": {
+        "express": "^4.18.2",
+        "slugify": "^1.6.5"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.20"
+    }
 }
