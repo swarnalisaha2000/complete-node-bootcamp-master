@@ -32,7 +32,7 @@ const fs  = require('fs');
 const http=require('http');
 const url = require('url');
 const replacetemplate =  require('./modules/replacetemplate');
-
+const slugify = require('slugify');
 
 const tempOverview=fs.readFileSync('./templates/overview.html','utf-8');
 const tempCard=fs.readFileSync('./templates/template_card.html','utf-8');
@@ -40,6 +40,10 @@ const tempProduct=fs.readFileSync('./templates/product.html','utf-8');
 
 const data=fs.readFileSync('./dev-data/data.json','utf-8');
 const productData=JSON.parse(data);
+const slugs = productData.map(el => slugify(el.productName,{
+    lower:true
+}));
+console.log(slugs);
 //const pathaname = req.url;
 
 const server = http.createServer((req, res)=>{
@@ -84,7 +88,7 @@ const server = http.createServer((req, res)=>{
 });
 
 
-
 server.listen(8000,'127.0.0.1',()=>{
     console.log('Listening to request');
 });
+
