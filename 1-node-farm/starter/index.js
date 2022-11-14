@@ -31,20 +31,9 @@ const fs  = require('fs');
 
 const http=require('http');
 const url = require('url');
+const replacetemplate =  require('./modules/replacetemplate');
 
-const replacetemplate = (temp,product) =>{
-    let output = temp.replace(/{%productName%}/g,product.productName);
-    output = output.replace(/{%image%}/g,product.image);
-    output = output.replace(/{%from%}/g,product.from);
-    output = output.replace(/{%nutrients%}/g,product.nutrients);
-    output = output.replace(/{%quantity%}/g,product.quantity);
-    output = output.replace(/{%description%}/g,product.description);
-    output = output.replace(/{%id%}/g,product.id);
 
-    if(!product.organic){
-        output = output.replace(/{%id%}/g,product.id);
-    }
-}
 const tempOverview=fs.readFileSync('./templates/overview.html','utf-8');
 const tempCard=fs.readFileSync('./templates/template_card.html','utf-8');
 const tempProduct=fs.readFileSync('./templates/product.html','utf-8');
@@ -54,18 +43,20 @@ const productData=JSON.parse(data);
 //const pathaname = req.url;
 
 const server = http.createServer((req, res)=>{
+    console.log(req.url);
+    const { query, pathname } = url.parse(req.url, true);
     const pathaname = req.url;
     //Overview
-    if(pathaname==='/' || pathaname==='/overview'){
+    if(pathname==='/' || pathname==='/overview'){
         res.writeHead(200,{'Context-type':'text/html'});
 
-        const cardshtml = productData.map(el => replacetemplate(tempCard,el))
-
-        res.end(tempOverview);
+        const cardshtml = productData.map(el => replacetemplate(tempCard,el)).join('');
+        const output = tempOverview.replace('{%PRODUCT_CARDS%}',cardshtml);
+        res.end(output);
     }
 
     //API
-    else if(pathaname==='/api'){
+    else if(pathname==='/api'){
         res.writeHead(200,{'Context-type':'application/json'});
         //console.log(productData);
         res.end(data);
@@ -74,9 +65,11 @@ const server = http.createServer((req, res)=>{
 
 
     //Product
-    else if(pathaname==='/product'){
-        
-        res.end('Product');
+    else if(pathname==='/product'){
+        res.writeHead(200,{'Context-type':'application/json'});
+        const product = productData[query.id];
+        const output = replacetemplate(tempProduct,product);
+        res.end(output);
     }
 
 
